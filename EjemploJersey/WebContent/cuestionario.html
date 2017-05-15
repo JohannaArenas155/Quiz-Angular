@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Cuestionario</title>
+<script type="text/javascript" 
+		src="resources/js/angular.min.js"></script>
+<script type="text/javascript" 
+		src="resources/js/cuestionario.js"></script>
+<link type="text/css" rel="stylesheet" 
+	href="resources/css/estilo.css"/>
+</head>
+<body ng-app="modCuestionario"><!-- ng-app="myModulo" está haciendo es definir el ámbito sobre el que AngularJS actuará. -->
+	<div ng-controller="contCuestionario"> <!--  define el controlador que actuará sobre el elemento y sus nodos hijo -->
+		<div class="preguntas">
+			<div ng-repeat="pregunta in preguntas" 
+			 class="pregunta">
+				<p class="estado-{{pregunta.estado}}">{{pregunta.texto}}</p>
+				<div ng-repeat="respuesta in pregunta.respuestas">
+					<input type="radio" value="{{respuesta.id}}"
+						name="pregunta{{pregunta.id}}"
+						id="respuesta{{pregunta.id}}{{respuesta.id}}"
+						ng-model="pregunta.respuesta"
+						ng-change="validar(pregunta)"/>  <!--  invoca a la funcion validar  cuando se seleccione una respuesta.  -->
+					<label for="respuesta{{pregunta.id}}{{respuesta.id}}">
+						{{respuesta.texto}}</label>
+				</div>
+			</div>
+			<button class="button" ng-click="enviar()">Enviar</button> <!--  invoca a la funcion enviar  cuando se seleccione una respuesta.  -->
+		</div>
+		<div class="estadoUsuario {{estadoUsuario}}">
+			<span>{{HazAcertado}}{{totalCorrectas}} {{de}} {{totalPreguntas}} </span>
+			
+		</div>
+	
+	</div>
+
+</body>
+</html>
